@@ -29,7 +29,7 @@ function getLocation() {
       console.log("* Longitude: " + position.coords.longitude);
     });
   } else {
-    console.log("Geolocation is not supported by this browser.");
+    console.log("* Geolocation is not supported by this browser.");
   }
 }
 onMounted(() => {
@@ -59,6 +59,8 @@ onMounted(() => {
   map.addEventListener("click", (e) => {
     const { lat: latitude, lng: longitude } = e.latlng;
 
+    console.log("* Marker added.");
+
     leaflet
       .marker([latitude, longitude])
       .addTo(map)
@@ -83,7 +85,6 @@ watchEffect(() => {
     if (userGeoMarker) {
       map.removeLayer(userGeoMarker);
     }
-
     userGeoMarker = leaflet
       .marker([userMarker.value.latitude, userMarker.value.longitude])
       .addTo(map)
@@ -91,9 +92,9 @@ watchEffect(() => {
 
     map.setView([userMarker.value.latitude, userMarker.value.longitude], 13);
 
-    const el = userGeoMarker.getElement();
-    if (el) {
-      el.style.filter = "hue-rotate(120deg)";
+    const gottenElement = userGeoMarker.getElement();
+    if (gottenElement) {
+      gottenElement.style.filter = "hue-rotate(120deg)";
     }
   }
 });
