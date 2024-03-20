@@ -1,20 +1,37 @@
 <template>
   <div id="map"></div>
-  <button> test</button>
+  <button @click="getLocation()">Get Location</button>
 </template>
 
 <script setup lang="ts">
 import leaflet from "leaflet";
-import { onMounted, watchEffect } from "vue";
+import { onMounted, watchEffect, ref } from "vue";
 import { useGeolocation } from "@vueuse/core";
 
 import { userMarker, nearbyMarkers } from "@/stores/mapStore";
 
 const { coords } = useGeolocation();
 
+const latitude = ref(0);
+const longitude = ref(0);
+
 let map: leaflet.Map;
 let userGeoMarker: leaflet.Marker;
 
+function getLocation() {
+  console.log("* Geolocation function called.");
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      latitude.value = position.coords.latitude;
+      longitude.value = position.coords.longitude;
+
+      console.log("* Latitude: " + position.coords.latitude);
+      console.log("* Longitude: " + position.coords.longitude);
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
 onMounted(() => {
   map = leaflet
     .map("map")
