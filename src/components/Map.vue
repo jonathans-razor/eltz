@@ -16,13 +16,12 @@ const latitude = ref(0);
 const longitude = ref(0);
 
 let map: leaflet.Map;
-let userGeoMarker: leaflet.Marker;
+let leafletMarker: leaflet.Marker;
 
 function getLocation() {
-  console.log("* Geolocation function called.");
+  console.log("* Asynchonous getLocation geolocation function called.");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log("* Lat Long block.");
       latitude.value = position.coords.latitude;
       longitude.value = position.coords.longitude;
       
@@ -32,7 +31,7 @@ function getLocation() {
   } else {
     console.log("* Geolocation is not supported by this browser.");
   }
-  console.log("* End of geolocation function.");
+  console.log("* End of getlocation function.");
 }
 onMounted(() => {
   map = leaflet
@@ -84,17 +83,17 @@ watchEffect(() => {
     userMarker.value.latitude = coords.value.latitude;
     userMarker.value.longitude = coords.value.longitude;
 
-    if (userGeoMarker) {
-      map.removeLayer(userGeoMarker);
+    if (leafletMarker) {
+      map.removeLayer(leafletMarker);
     }
-    userGeoMarker = leaflet
+    leafletMarker = leaflet
       .marker([userMarker.value.latitude, userMarker.value.longitude])
       .addTo(map)
       .bindPopup("User Marker");
 
     map.setView([userMarker.value.latitude, userMarker.value.longitude], 13);
 
-    const gottenElement = userGeoMarker.getElement();
+    const gottenElement = leafletMarker.getElement();
     if (gottenElement) {
       gottenElement.style.filter = "hue-rotate(120deg)";
     }
