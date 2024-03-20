@@ -22,15 +22,17 @@ function getLocation() {
   console.log("* Geolocation function called.");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
+      console.log("* Lat Long block.");
       latitude.value = position.coords.latitude;
       longitude.value = position.coords.longitude;
-
+      
       console.log("* Latitude: " + position.coords.latitude);
       console.log("* Longitude: " + position.coords.longitude);
     });
   } else {
     console.log("* Geolocation is not supported by this browser.");
   }
+  console.log("* End of geolocation function.");
 }
 onMounted(() => {
   map = leaflet
