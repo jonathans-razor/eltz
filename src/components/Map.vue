@@ -1,5 +1,6 @@
 <template>
   <div id="map"></div>
+  <button> test</button>
 </template>
 
 <script setup lang="ts">
@@ -81,9 +82,9 @@ watchEffect(() => {
 });
 </script>
 
-<style scoped>
+ <style scoped>
 #map {
   width: 100%;
-  height: 100vh;
+  height: 98vh;
 }
 </style>
