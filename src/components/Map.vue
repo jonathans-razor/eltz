@@ -1,6 +1,7 @@
 <template>
   <div id="map"></div>
   <button @click="getLocation()">Get Location</button>
+  {{ latitude }} {{ longitude }}
 </template>
 
 <script setup lang="ts">
@@ -14,6 +15,8 @@ const { coords } = useGeolocation();
 
 const latitude = ref(0);
 const longitude = ref(0);
+//const map = ref();
+//const mapContainer = ref();
 
 let map: leaflet.Map;
 let leafletMarker: leaflet.Marker;
