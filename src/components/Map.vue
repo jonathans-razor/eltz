@@ -19,7 +19,7 @@ let map: leaflet.Map;
 let leafletMarker: leaflet.Marker;
 
 function getLocation() {
-  console.log("* Asynchonous getLocation geolocation function called.");
+  console.log("* getLocation function (asynchronous) begin.");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       latitude.value = position.coords.latitude;
@@ -31,7 +31,7 @@ function getLocation() {
   } else {
     console.log("* Geolocation is not supported by this browser.");
   }
-  console.log("* End of getlocation function.");
+  console.log("* getlocation function end.");
 }
 onMounted(() => {
   map = leaflet
